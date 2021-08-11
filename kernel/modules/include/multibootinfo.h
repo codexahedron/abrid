@@ -1,4 +1,4 @@
-#include "../lib/multiboot.h"
+#include <multiboot.h>
 
 #ifndef __MULTIBOOTINFO_H
 #define __MULTIBOOTINFO_H

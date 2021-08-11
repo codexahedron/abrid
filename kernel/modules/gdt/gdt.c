@@ -1,5 +1,6 @@
 #include <gdt.h>
 #include <screen.h>
+#include <modules.h>
 
 /* Defines a GDT entry */
 struct gdt_entry
@@ -50,7 +51,7 @@ void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned cha
 *  new segment registers */
 void gdt_install()
 {
-    kprintf("Initializing GDT...");
+	module_t modules_gdt_gdt = MODULE("kernel.modules.gdt.gdt", "GDT for the kernel (CORE)");
     /* Setup the GDT pointer and limit */
     gp.limit = (sizeof(struct gdt_entry) * 3) - 1;
     gp.base = (unsigned int)&gdt;
@@ -72,5 +73,6 @@ void gdt_install()
 
     /* Flush out the old GDT and install the new changes! */
     _gdt_flush();
-    putstr("[OK]\n", COLOR_GRN, COLOR_BLK);
+	INIT(modules_gdt_gdt);
+    
 }

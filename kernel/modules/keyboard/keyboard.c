@@ -3,7 +3,8 @@
 #include <isr.h>
 #include <irq.h>
 #include <keyboard.h>
-#include <kshell.h>
+#include <shell.h>
+#include <modules.h>
 
 #define sizeof(type) (char *)(&type+1)-(char*)(&type)
 
@@ -107,7 +108,7 @@ void track_input(char c){
         if(c == '\n'){
           //handle shell support here
           //parse_input(input_buffer, i);
-		  kshell(input_buffer, i);
+		  shell(input_buffer, i);
 		  memset(input_buffer, 0, sizeof(input_buffer));
           i=0;
         }
@@ -129,7 +130,7 @@ void track_input(char c){
 }
 
 void keyboard_install(){
-    kprintf("Installing Keyboard...");
+	module_t modules_keyboard_keyboard = MODULE("kernel.modules.keyboard.keyboard", "Provides PS/2 keyboard support for the kernel (CORE)");
     irq_install_handler(1, keyboard_handler);
-    putstr("[OK]\n", COLOR_GRN, COLOR_BLK);
+    INIT(modules_keyboard_keyboard);
 }

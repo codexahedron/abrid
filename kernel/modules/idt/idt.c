@@ -1,6 +1,7 @@
 #include <screen.h>
-#include "./lib/mem.h"
+#include <memory.h>
 #include <idt.h>
+#include <modules.h>
 
 //define a structure for the IDT entry
 struct idt_entry
@@ -43,7 +44,7 @@ void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel, uns
 
 //to install the IDT, we can use the following function
 void idt_install(){
-    kprintf("Initializing IDT...");
+	module_t modules_idt_idt = MODULE("kernel.modules.idt.idt", "IDT for the kernel (CORE)");
     //set the special IDT pointer just like we did in gdt.c
     idtp.limit = (sizeof(struct idt_entry)*256)-1;
     idtp.base = (unsigned int)&idt; //point the base of IDT pointer to our idt_entry's address
@@ -53,5 +54,5 @@ void idt_install(){
 
     //tell the processor to point the internal register to the new IDT
     load_idt();
-    putstr("[OK]\n", COLOR_GRN, COLOR_BLK);
+    INIT(modules_idt_idt);
 }

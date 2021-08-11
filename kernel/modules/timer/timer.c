@@ -3,7 +3,8 @@
 #include <irq.h>
 #include <timer.h>
 #include <ports.h>
-#include "./lib/string.h"
+#include <string.h>
+#include <modules.h>
 
 #define FREQ 100
 
@@ -44,10 +45,10 @@ void timer_handler(struct regs *r){
 
 //let's install timer handler into IRQ0
 void timer_install(){
-    kprintf("Installing Timer...");
+    module_t modules_timer_timer = MODULE("kernel.modules.timer.timer", "Adds PIT support for the kernel (CORE)");
     timer_phase(FREQ);
     irq_install_handler(0, timer_handler);
-    putstr("[OK]\n", COLOR_GRN, COLOR_BLK);
+    INIT(modules_timer_timer);
 }
 
 void timer_wait(int val){

@@ -3,6 +3,7 @@
 #include <idt.h>
 #include <isr.h>
 #include <irq.h>
+#include <modules.h>
 
 //IRQs occur whenever a device wants to interact with the CPU
 //the CPU will use two PICs, master and slave to interact with devices
@@ -69,7 +70,7 @@ void irq_remap(void){
 //into the correct IDT entries
 
 void irq_install(){
-    kprintf("Installing IRQs...");
+	module_t modules_irq_irq = MODULE("kernel.modules.irq.irq", "Provides IRQ support for the kernel (CORE)");
     irq_remap();
 
     //mapping the IRQs to 32-47 IDT entries
@@ -89,7 +90,7 @@ void irq_install(){
     idt_set_gate(45, (unsigned)_irq13, 0x08, 0x8E);
     idt_set_gate(46, (unsigned)_irq14, 0x08, 0x8E);
     idt_set_gate(47, (unsigned)_irq15, 0x08, 0x8E);
-    putstr("[OK]\n", COLOR_GRN, COLOR_BLK);
+    INIT(modules_irq_irq);
 }
 
 //now we use a irq_handler instead of fault_handler

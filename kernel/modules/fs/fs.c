@@ -1,11 +1,11 @@
-#include "include/fs.h"
-#include "include/initrd.h"
+#include <fs.h>
+#include <initrd.h>
 #include <types.h>
 #include <multibootinfo.h>
 #include <screen.h>
+#include <modules.h>
 
 fs_node_t *fs_root = 0; // The root of the filesystem.
-
 uint32_t read_fs(fs_node_t *node, uint32_t offset, uint32_t size, uint8_t *buffer)
 {
     // Has the node got a read callback?
@@ -59,10 +59,10 @@ fs_node_t *finddir_fs(fs_node_t *node, char *name)
 }
 void filesystem_init() 
 {
-	kprintf("Initializing filesystem...");
+	module_t modules_fs_fs = MODULE("kernel.modules.fs.fs", "Filesystem for the initrd and kernel");
 	uint32_t initrd_location = *((uint32_t*)mbi->mods_addr);
    	uint32_t initrd_end = *(uint32_t*)(mbi->mods_addr+4);
    	uint32_t placement_address = initrd_end;
 	fs_root = initialise_initrd(initrd_location);
-	putstr("[OK]\n", COLOR_GRN, COLOR_BLK);
+	INIT(modules_fs_fs);
 }

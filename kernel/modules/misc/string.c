@@ -1,5 +1,5 @@
-#include "string.h"
-#include "mem.h"
+#include <string.h>
+#include <memory.h>
 #include <screen.h>
 #define NULL ((char *)0)
 

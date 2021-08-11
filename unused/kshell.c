@@ -10,7 +10,7 @@
 #define sizeof(type) (char *)(&type+1)-(char*)(&type)
 
 extern int enable_shell;
-
+fs_node_t blank;
 int cf = 1;
 int dfs = 1;
 void kshell_init(){
@@ -27,27 +27,27 @@ void kshell(char s[], int i){
   	char* cmdnamee = strtok(start, " ");
   if(strcmp(s, "clear")==0){
   	clear_scr();
-  } else if(strcmp(s, "help")==0){
+  } else if(strcmp(s, "help")==0){ // print help information
   	available_commands();
-  } else if(strcmp(s, "about")==0){
+  } else if(strcmp(s, "about")==0){ // print info about computer
   	kprintf("Abrid-x86: a 32 bit operating system written in C and Assembly\n");
-  } else if(strcmp(s, "hlt")==0){
+  } else if(strcmp(s, "hlt")==0){ // halt the computer
   	halt();
-  } else if(strcmp(cmdnamee, "panic")==0) {
+  } else if(strcmp(cmdnamee, "panic")==0) { // kernel panic
 	  panic("Kernel panic created by `panic` command", USER_CREATED_PANIC);
-  } else if(strcmp(s, "reboot")==0){
+  } else if(strcmp(s, "reboot")==0){ // reboot computer
   	reboot();
-  } else if(strcmp(s, "unknownerror")==0){
+  } else if(strcmp(s, "unknownerror")==0){ // prints unknown error
     	kprintf("Printing unknown error:\n");
   	unknown_command(s);
-  } else if(strcmp(s, "sec")==0) {
+  } else if(strcmp(s, "sec")==0) { // get seconds elapsed from startup
   	char *buf;
   	char *str = itoa(get_tracked_seconds(), buf, 10);
   	strcat(str, "\n");
   	kprintf(str);
-  } else if(strcmp(cmdnamee, "echo")==0) {
+  } else if(strcmp(cmdnamee, "echo")==0) { // echo message after "echo "
 	kprintf(strremove(s,"echo "));
-  }else if(strcmp(s, "ls")==0) {
+  }else if(strcmp(s, "ls")==0) { // list files and kprintf it
 	struct dirent *node = 0;
 	int i=0;
 	while ( (node = readdir_fs(fs_root, i)) != 0)
@@ -61,7 +61,7 @@ void kshell(char s[], int i){
 		kprintf("\n");
 		i++;
 	} 
-  } else if(strcmp(cmdnamee, "cat")==0) {
+  } else if(strcmp(cmdnamee, "cat")==0) { // read file and kprintf it
 	  char buf[4096];
 		fs_node_t *fsnode = finddir_fs(fs_root, strremove(s,"cat "));
 		uint32_t sz = read_fs(fsnode, 0, 4096, buf);
@@ -71,10 +71,10 @@ void kshell(char s[], int i){
 	  kprintf("\n");
   } else if(strcmp(cmdnamee, "\\\/")==0 || s == "") { // comment
 	
-  } else if(strcmp(s, "ram")==0) {
+  } else if(strcmp(s, "ram")==0) { // list amount of RAM installed
 	char* buf;
 	kprintf(itoa(ram_size(), buf, 10));
-  } else {
+  } else { // unknown command
   	unknown_command(s);
   }
 

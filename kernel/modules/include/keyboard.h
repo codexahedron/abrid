@@ -10,6 +10,5 @@ char get_key();
 
 void keyboard_install();
 void track_input(char c);
-//void parse_input(char *input, int i);
 
 #endif

@@ -1,13 +1,13 @@
 // initrd.c -- Defines the interface for and structures relating to the initial ramdisk.
 // Written for JamesM's kernel development tutorials.
 
-#include "include/initrd.h"
-#include "lib/mem.h"
+#include <initrd.h>
+#include <memory.h>
 #include <types.h>
+#include <modules.h>
 
 initrd_header_t *initrd_header;     // The header.
 initrd_file_header_t *file_headers; // The list of file headers.
-fs_node_t *initrd_root;             // Our root directory node.
 fs_node_t *initrd_dev;              // We also add a directory node for /dev, so we can mount devfs later on.
 fs_node_t *root_nodes;              // List of file nodes.
 int nroot_nodes;                    // Number of file nodes.
@@ -45,9 +45,6 @@ static struct dirent *initrd_readdir(fs_node_t *node, uint32_t index)
 
 static fs_node_t *initrd_finddir(fs_node_t *node, char *name)
 {
-   if (node == initrd_root &&
-       !strcmp(name, "dev") )
-       return initrd_dev;
 
    int i;
    for (i = 0; i < nroot_nodes; i++)
@@ -58,6 +55,7 @@ static fs_node_t *initrd_finddir(fs_node_t *node, char *name)
 
 fs_node_t *initialise_initrd(uint32_t location)
 {
+	module_t modules_initrd_initrd = MODULE("kernel.modules.initrd.initrd", "Provides initrd support for the kernel");
    // Initialise the main and file header pointers and populate the root directory.
    initrd_header = (initrd_header_t *)location;
    file_headers = (initrd_file_header_t *) (location+sizeof(initrd_header_t)); 
@@ -111,5 +109,6 @@ fs_node_t *initialise_initrd(uint32_t location)
        root_nodes[i].close = 0;
        root_nodes[i].impl = 0;
    } 
+   INIT(modules_initrd_initrd);
    return initrd_root;
 } 

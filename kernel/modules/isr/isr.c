@@ -1,6 +1,7 @@
 #include <screen.h>
 #include <idt.h>
 #include <isr.h>
+#include <modules.h>
 
 //define our ISRs here
 extern void _isr0();
@@ -40,7 +41,7 @@ extern void _isr31();
 //This means that the entry is present, is running kernel level, and has the lower 5 bits
 void isr_install()
 {
-    kprintf("Installing ISRs...");
+	module_t modules_isr_isr = MODULE("kernel.modules.isr.isr", "Provides ISR support for the kernel (CORE)");
     idt_set_gate(0, (unsigned)_isr0, 0x08, 0x8E);
     idt_set_gate(1, (unsigned)_isr1, 0x08, 0x8E);
     idt_set_gate(2, (unsigned)_isr2, 0x08, 0x8E);
@@ -76,7 +77,7 @@ void isr_install()
     idt_set_gate(29, (unsigned)_isr29, 0x08, 0x8E);
     idt_set_gate(30, (unsigned)_isr30, 0x08, 0x8E);
     idt_set_gate(31, (unsigned)_isr31, 0x08, 0x8E);
-    putstr("[OK]\n", COLOR_GRN, COLOR_BLK);
+    INIT(modules_isr_isr);
 }
 
 // Let's define an array of strings to represent the exception messages for our ISRs
