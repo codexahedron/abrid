@@ -1,0 +1,17 @@
+iso/
+bin/
+
+.replit
+replt.nix
+
+changelog.txt
+
+floppy.img
+
+initrdgen
+
+os.bin
+os.iso
+
+1.1.0/
+2.0.0/

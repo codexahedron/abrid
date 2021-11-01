@@ -1,0 +1,49 @@
+sources p= FGET ./kernel/* *.c
+headers p= FGET ./kernel/* *.h
+objects p= REPLACEVAR sources \.c .o
+BLANK objb
+char = ' '
+end p= VARAWK -F"${char}" '{print NF-1}' <<< "${objects}"
+end++
+COMMAND nasm -f elf ./kernel/arch/i386/boot.asm -o ./bin/boot.o
+
+FORRANGE i 1 $end
+
+ASSIGNCMD ta echo ./bin/$(basename $(echo $objects | cut -d" " -f$i ))
+ASSIGNCMD tb echo $sources | cut -d" " -f$i
+APPEND objb ta
+COMMAND gcc -m32 -elf_i386 -Wall -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -I./kernel/modules/include -L./lib/ -fno-stack-protector -c -o $ta $tb
+
+DONE
+
+COMMAND objb="${objb:1}"
+COMMAND ld -T link.ld -m elf_i386 -o os.bin $objb ./bin/boot.o
+RM -r iso
+MKDIR iso
+MKDIR iso/boot
+MKDIR iso/boot/grub
+MV os.bin iso/boot/os.bin
+
+FAPPEND iso/boot/grub/grub.cfg set timeout-0
+FAPPEND iso/boot/grub/grub.cfg set default-0
+FAPPEND iso/boot/grub/grub.cfg menuentry "abrid" {
+FAPPEND iso/boot/grub/grub.cfg   multiboot /boot/os.bin
+FAPPEND iso/boot/grub/grub.cfg   module  /boot/os.initrd
+FAPPEND iso/boot/grub/grub.cfg   boot
+FAPPEND iso/boot/grub/grub.cfg }
+
+RM initrdgen
+COMMAND gcc initrdgen.c -o initrdgen
+
+inp = "./readme ${sources} ${headers}"
+BLANK res
+
+FORIN word $inp
+APPEND res word
+APPEND res word
+DONE
+
+COMMAND ./initrdgen $res
+MV ./initrd.img ./iso/boot/os.initrd
+COMMAND grub-mkrescue --output=os.iso iso
+COMMAND qemu-system-i386 -soundhw pcspk -cdrom os.iso -m 256M -hda floppy.img
