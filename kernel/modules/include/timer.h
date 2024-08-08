@@ -26,5 +26,5 @@ void timer_wait(int val);
 	\returns The amount of seconds elapsed since Abrid was loaded
 */
 int get_tracked_seconds();
-
+int get_tracked_milliseconds();
 #endif

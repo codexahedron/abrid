@@ -27,6 +27,12 @@ void shell(char s[], int i){
   	available_commands();
   } else if(strcmp(s, "about")==0){ // print info about computer
   	kprintf("Abrid-x86: a 32 bit operating system written in C and Assembly\n");
+	  char buf[4096];
+		fs_node_t *fsnode = finddir_fs(fs_root, "./SYSINFO");
+		uint32_t sz = read_fs(fsnode, 0, 32, buf);
+		int j;
+	  printf("username: %s", buf);
+	  kprintf("\n");
   } else if(strcmp(s, "hlt")==0){ // halt the computer
   	halt();
   } else if(strcmp(cmdnamee, "panic")==0) { // kernel panic
@@ -42,8 +48,10 @@ void shell(char s[], int i){
   	strcat(str, "\n");
   	kprintf(str);
   } else if(strcmp(cmdnamee, "echo")==0) { // echo message after "echo "
-	kprintf(strremove(s,"echo "));
-  }else if(strcmp(s, "ls")==0) { // list files and kprintf it
+	printf("%s\n", strremove(s,"echo "));
+  } else if(strcmp(cmdnamee, "printf")==0) {
+	  printf("%s", strremove(s,"printf "));
+  } else if(strcmp(s, "ls")==0) { // list files and kprintf it
 	struct dirent *node = 0;
 	int i=0;
 	while ( (node = readdir_fs(fs_root, i)) != 0)
@@ -69,7 +77,7 @@ void shell(char s[], int i){
 	
   } else if(strcmp(cmdnamee, "man")==0) {
 	man(strremove(s, "man "));
-  } else if(strcmp(cmdnamee, "ram")==0) { // list amount of RAM installed
+  } else if(strcmp(s, "ram")==0) { // list amount of RAM installed
 	char* buf;
 	kprintf(itoa(ram_size(), buf, 10));
   } else { // unknown command

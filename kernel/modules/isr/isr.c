@@ -41,7 +41,7 @@ extern void _isr31();
 //This means that the entry is present, is running kernel level, and has the lower 5 bits
 void isr_install()
 {
-	module_t modules_isr_isr = MODULE("kernel.modules.isr.isr", "Provides ISR support for the kernel (CORE)");
+	module_t modules_isr_isr = MODULE("kernel.modules.isr.isr", "Provides ISR support for the kernel (CORE) \n This coremodule provides support for the \n Interrupt Service Routine or ISR.");
     idt_set_gate(0, (unsigned)_isr0, 0x08, 0x8E);
     idt_set_gate(1, (unsigned)_isr1, 0x08, 0x8E);
     idt_set_gate(2, (unsigned)_isr2, 0x08, 0x8E);

@@ -70,7 +70,7 @@ void irq_remap(void){
 //into the correct IDT entries
 
 void irq_install(){
-	module_t modules_irq_irq = MODULE("kernel.modules.irq.irq", "Provides IRQ support for the kernel (CORE)");
+	module_t modules_irq_irq = MODULE("kernel.modules.irq.irq", "Provides IRQ support for the kernel (CORE)\nThis coremodule provides support for interrupt requests, which is required for operation of the\n operating system.");
     irq_remap();
 
     //mapping the IRQs to 32-47 IDT entries

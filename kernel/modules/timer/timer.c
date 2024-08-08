@@ -61,3 +61,6 @@ void timer_wait(int val){
 int get_tracked_seconds() {
 	return seconds;
 }
+int get_tracked_milliseconds() {
+	return ticks * 10;
+}

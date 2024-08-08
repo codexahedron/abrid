@@ -181,7 +181,7 @@ void track_input(char c){
 }
 
 void keyboard_install(){
-	module_t modules_keyboard_keyboard = MODULE("kernel.modules.keyboard.keyboard", "Provides PS/2 keyboard support for the kernel (CORE)");
+	module_t modules_keyboard_keyboard = MODULE("kernel.modules.keyboard.keyboard", "Provides PS/2 keyboard support for the kernel (CORE)\n\nThis allows users to use an essential feature of any interactive operating system - \n the keyboard.");
     irq_install_handler(1, keyboard_handler);
     INIT(modules_keyboard_keyboard);
 }

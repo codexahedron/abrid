@@ -12,6 +12,6 @@ void man(char* module) {
 }
 
 void manpage_init() {
-	module_t modules_manpage_man = MODULE("kernel.modules.manpage.man", "Adds support for viewing the description/manpage of a module (CORE)");
+	module_t modules_manpage_man = MODULE("kernel.modules.manpage.man", "Adds support for viewing the description/manpage of a module (CORE).\n\nThis program allows you to view the description of\n internal and external programs and modules\n and know what they are used for.");
 	INIT(modules_manpage_man);
 }

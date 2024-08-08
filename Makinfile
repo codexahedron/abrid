@@ -43,7 +43,7 @@ APPEND res word
 APPEND res word
 DONE
 
-COMMAND ./initrdgen $res
+COMMAND ./initrdgen $res SYSINFO SYSINFO
 MV ./initrd.img ./iso/boot/os.initrd
 COMMAND grub-mkrescue --output=os.iso iso
 COMMAND qemu-system-i386 -soundhw pcspk -cdrom os.iso -m 256M -hda floppy.img

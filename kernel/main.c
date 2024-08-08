@@ -35,6 +35,7 @@ int main(multiboot_info_t* mb_info, uint32_t magic){
   isr_install();
   irq_install();
   timer_install();
+  int before_ms = get_tracked_milliseconds();
   filesystem_init();
   shell_init();
   keyboard_install();
@@ -44,7 +45,10 @@ int main(multiboot_info_t* mb_info, uint32_t magic){
   __asm__ __volatile__("sti");
 
   // print the welcome message
-  putstr("Welcome to ", COLOR_GRY, COLOR_BLK);
+  putstr("[t=", COLOR_GRY, COLOR_BLK);
+  char* buf;
+  putstr(itoa(get_tracked_milliseconds()-before_ms, buf, 10), COLOR_CYN, COLOR_BLK);
+  putstr("ms] Welcome to ", COLOR_GRY, COLOR_BLK);
   putstr("Abrid\n", COLOR_CYN, COLOR_BLK);
   kprintf(">");
   return 0;

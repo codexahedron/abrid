@@ -55,7 +55,7 @@ static fs_node_t *initrd_finddir(fs_node_t *node, char *name)
 
 fs_node_t *initialise_initrd(uint32_t location)
 {
-	module_t modules_initrd_initrd = MODULE("kernel.modules.initrd.initrd", "Provides initrd support for the kernel");
+	module_t modules_initrd_initrd = MODULE("kernel.modules.initrd.initrd", "Provides initrd support for the kernel\nThis module provides basic support for the initial ramdisk: a read-only method of storing data from\n external sources.");
    // Initialise the main and file header pointers and populate the root directory.
    initrd_header = (initrd_header_t *)location;
    file_headers = (initrd_file_header_t *) (location+sizeof(initrd_header_t)); 
