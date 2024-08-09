@@ -116,7 +116,7 @@ bigint_t sub(bigint_t a, bigint_t b);
     \param{in} n How far to calculate.
     \returns The nth Fibonacci number in bigint form.
 */
-int greater_than(bigint x, bigint y);
+int greater_than(bigint_t x, bigint_t y);
 
 /**
     \brief Calculates if x<y.
@@ -125,6 +125,6 @@ int greater_than(bigint x, bigint y);
     \param{in} y The second parameter in the inequality.
     \returns The nth Fibonacci number in bigint form.
 */
-int less_than(bigint x, bigint y);
+int less_than(bigint_t x, bigint_t y);
 
 #endif
