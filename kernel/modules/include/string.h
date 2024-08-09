@@ -2,7 +2,7 @@
   \file      string.h
   \brief     Provides string manipulation support to the kernel
   \details   Allows the kernel to manipulate strings.
-  \author    matthyno
+  \author    mechanikate
   \version   1.0.0
   \date      2021
   \copyright MIT License.

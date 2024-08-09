@@ -2,7 +2,7 @@
   \file      screen.h
   \brief     Provides screen output to the kernel
   \details   Allows the kernel to printf, kprintf, etc.
-  \author    matthyno
+  \author    mechanikate
   \version   1.0.0
   \date      2021
   \copyright MIT License.

@@ -2,7 +2,7 @@
   \file      timer.h
   \brief     Provides timer support to the kernel
   \details   Allows the kernel to get the seconds elapsed since the OS was loaded, sleeping, and more.
-  \author    matthyno
+  \author    mechanikate
   \version   1.0.0
   \date      2021
   \copyright MIT License.

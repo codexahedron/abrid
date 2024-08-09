@@ -2,7 +2,7 @@
   \file      memory.h
   \brief     Memory support.
   \details   This header file is used for memory allocation/freeing/etc. support.
-  \author    matthyno
+  \author    mechanikate
   \version   1.0.0
   \date      2021
   \copyright MIT License.

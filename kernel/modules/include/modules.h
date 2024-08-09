@@ -2,7 +2,7 @@
   \file      modules.h
   \brief     Modular kernel support.
   \details   This header file is used to support a more modular kernel.
-  \author    matthyno
+  \author    mechanikate
   \version   1.0.0
   \date      2021
   \copyright MIT License.

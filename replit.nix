@@ -1,5 +1,6 @@
 { pkgs }: {
 	deps = [
+   pkgs.rpl
 		pkgs.qemu
 		pkgs.gcc
 		pkgs.binutils

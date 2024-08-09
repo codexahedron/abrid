@@ -1,7 +1,7 @@
 /**
   \file      types.h
   \brief     Standard stdint unsigned/singed integer types
-  \author    matthyno
+  \author    mechanikate
   \version   1.0.0
   \date      2021
   \copyright MIT License.

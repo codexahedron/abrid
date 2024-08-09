@@ -2,7 +2,7 @@
   \file      keyboard.h
   \brief     Keyboard support.
   \details   This header file is used for keyboard support.
-  \author    matthyno
+  \author    mechanikate
   \version   1.0.0
   \date      2021
   \copyright MIT License.

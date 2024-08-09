@@ -2,7 +2,7 @@
   \file      ports.h
   \brief     Provides inb/outb/etc. support for the kernel, generally ports
   \details   Allows the kernel to inportbyte, outportbyte and similar.
-  \author    matthyno
+  \author    mechanikate
   \version   1.0.0
   \date      2021
   \copyright MIT License.

@@ -2,7 +2,7 @@
   \file      irq.h
   \brief     IRQ support.
   \details   This header file is used for interrupt request support.
-  \author    matthyno
+  \author    mechanikate
   \version   1.0.0
   \date      2021
   \copyright MIT License.

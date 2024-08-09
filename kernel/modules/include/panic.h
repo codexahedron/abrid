@@ -2,7 +2,7 @@
   \file      panic.h
   \brief     Provides kernel panic ability for the kernel
   \details   Allows the kernel to kernel panic, with reasonable amounts of details and a log.
-  \author    matthyno
+  \author    mechanikate
   \version   1.0.0
   \date      2021
   \copyright MIT License.
