@@ -114,13 +114,13 @@ int get_greater(bigint_t a, bigint_t b) {
     int larger_magnitude = res_larger_magnitude != -1 ? res_larger_magnitude : 1;
     return a.sign * larger_magnitude;
 }
-int greater_than(bigint x, bigint y) {
+int greater_than(bigint_t x, bigint_t y) {
     if(x.sign>y.sign) return 0;
     if(x.sign<y.sign) return 1;
     int res_larger_magnitude = get_larger_magnitude(x,y);
     return x.sign * res_larger_magnitude != -1 ? res_larger_magnitude : 2;
 }
-int less_than(bigint x, bigint y) {
+int less_than(bigint_t x, bigint_t y) {
     return greater_than(y,x);
 }
 bigint_t fib(int n) {
